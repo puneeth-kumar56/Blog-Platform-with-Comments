@@ -1,0 +1,6 @@
+{
+  "name": "DevScribe - MERN Blog Platform",
+  "description": "A full-stack responsive blogging platform built with the MERN stack featuring user authentication, post creation, category filtering, search, and interactive comments.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}

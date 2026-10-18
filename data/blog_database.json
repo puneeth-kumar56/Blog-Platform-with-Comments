@@ -1,0 +1,209 @@
+{
+  "users": [
+    {
+      "_id": "user_alex_101",
+      "name": "Alex Rivera",
+      "email": "alex@example.com",
+      "password": "$2b$10$hzcYI5U8qIQ3O.eQjH8/m.fVs8tgZBmnzu8Z/y6Xe8/lyaAqjpcz2",
+      "bio": "Full-stack software architect focusing on high-scale distributed systems and TypeScript.",
+      "avatar": "https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=150&auto=format&fit=crop&q=80",
+      "createdAt": "2026-01-15T09:00:00.000Z"
+    },
+    {
+      "_id": "user_sarah_102",
+      "name": "Sarah Chen",
+      "email": "sarah@example.com",
+      "password": "$2b$10$hzcYI5U8qIQ3O.eQjH8/m.fVs8tgZBmnzu8Z/y6Xe8/lyaAqjpcz2",
+      "bio": "Design systems advocate, frontend engineer, and open source enthusiast.",
+      "avatar": "https://images.unsplash.com/photo-1494790108377-be9c29b29330?w=150&auto=format&fit=crop&q=80",
+      "createdAt": "2026-02-01T11:30:00.000Z"
+    },
+    {
+      "_id": "user_marcus_103",
+      "name": "Marcus Vance",
+      "email": "marcus@example.com",
+      "password": "$2b$10$hzcYI5U8qIQ3O.eQjH8/m.fVs8tgZBmnzu8Z/y6Xe8/lyaAqjpcz2",
+      "bio": "Cloud infra engineer, security researcher, and database optimization nerd.",
+      "avatar": "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=150&auto=format&fit=crop&q=80",
+      "createdAt": "2026-02-20T14:15:00.000Z"
+    }
+  ],
+  "posts": [
+    {
+      "_id": "post_1001",
+      "title": "Modern Full-Stack Architecture with MERN: Patterns & Best Practices",
+      "content": "Developing scalable web applications demands a clear separation of concerns, defensive programming, and rigorous data consistency across the stack.\n\n### 1. Unified TypeScript Contracts\nBy declaring shared schema interfaces for requests and responses, frontend React components and Express controllers share a single source of truth. This prevents silent drift between client payloads and server models.\n\n### 2. Authentication Beyond Cookies\nWhile HTTP-only cookies protect against XSS token harvesting, Bearer tokens inside authorization headers provide seamless cross-domain support and microservice forwarding. Using standard JWT with tight expiration periods and refresh strategies balances usability and security.\n\n### 3. Cascading Cleanups in NoSQL\nMongoDB provides remarkable flexibility, but document relationships require deliberate lifecycle management. When deleting parent records such as blog posts, always ensure associated child records (like comments or attachments) are removed synchronously or through pre-delete hooks.\n\n```javascript\n// Cascading comment deletion example\npostSchema.pre('findOneAndDelete', async function(next) {\n  const doc = await this.model.findOne(this.getQuery());\n  if (doc) {\n    await Comment.deleteMany({ post: doc._id });\n  }\n  next();\n});\n```\n\nWith careful planning, the MERN stack delivers an unparalleled developer velocity and exceptional user experience.",
+      "author": {
+        "_id": "user_alex_101",
+        "name": "Alex Rivera",
+        "email": "alex@example.com",
+        "avatar": "https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=150&auto=format&fit=crop&q=80"
+      },
+      "category": "Web Development",
+      "coverImage": "https://images.unsplash.com/photo-1498050108023-c5249f4df085?w=1200&auto=format&fit=crop&q=80",
+      "tags": [
+        "MERN",
+        "React",
+        "NodeJS",
+        "MongoDB",
+        "Architecture"
+      ],
+      "readTime": 5,
+      "likesCount": 38,
+      "commentsCount": 2,
+      "createdAt": "2026-10-15T12:25:35.655Z",
+      "updatedAt": "2026-10-15T12:25:35.655Z"
+    },
+    {
+      "_id": "post_1002",
+      "title": "Designing Intuitive Developer Experience in Modern Web Applications",
+      "content": "Developer Experience (DX) is directly reflected in the final user experience (UX). When engineering teams operate with predictable state management and crystal-clear feedback loops, product quality soars.\n\n### Principles of First-Class UI Feedback\n* **Predictable Loading States:** Never leave users guessing whether a button click registered. Use inline spinners, disabled states, and skeleton screens.\n* **Granular Error Handling:** Instead of opaque \"Something went wrong\" messages, return actionable diagnostic messages (e.g. \"Email is already registered\" or \"Password must be at least 6 characters\").\n* **Optimistic Updates:** Immediate visual confirmation makes web apps feel lightning-fast.\n\nInvesting in these details transforms a run-of-the-mill blog into a delightful publication platform.",
+      "author": {
+        "_id": "user_sarah_102",
+        "name": "Sarah Chen",
+        "email": "sarah@example.com",
+        "avatar": "https://images.unsplash.com/photo-1494790108377-be9c29b29330?w=150&auto=format&fit=crop&q=80"
+      },
+      "category": "Design",
+      "coverImage": "https://images.unsplash.com/photo-1507238691740-187a5b1d37b8?w=1200&auto=format&fit=crop&q=80",
+      "tags": [
+        "UX",
+        "Frontend",
+        "DesignSystems",
+        "Accessibility"
+      ],
+      "readTime": 4,
+      "likesCount": 24,
+      "commentsCount": 1,
+      "createdAt": "2026-10-13T12:25:35.655Z",
+      "updatedAt": "2026-10-13T12:25:35.655Z"
+    },
+    {
+      "_id": "post_1003",
+      "title": "The Pragmatic Guide to Database Indexing and Query Optimization",
+      "content": "As document databases grow into millions of records, single-field and compound indexes become vital to prevent full collection table scans.\n\n### Essential MongoDB Indexing Tips:\n1. **Index Query Filters & Sort Keys:** For queries filtering by `category` and sorting by `createdAt desc`, create compound indexes:\n```javascript\npostSchema.index({ category: 1, createdAt: -1 });\n```\n2. **Text Search Indexes:** Utilize `$text` indexes on `title` and `content` for quick keyword matches.\n3. **Sparse Indexes:** Use sparse indexes for fields that only exist on a subset of documents, minimizing memory footprints.\n\nObserving query execution plans with `.explain(\"executionStats\")` reveals bottlenecks before they hit production traffic.",
+      "author": {
+        "_id": "user_marcus_103",
+        "name": "Marcus Vance",
+        "email": "marcus@example.com",
+        "avatar": "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=150&auto=format&fit=crop&q=80"
+      },
+      "category": "Technology",
+      "coverImage": "https://images.unsplash.com/photo-1544383835-bda2bc66a55d?w=1200&auto=format&fit=crop&q=80",
+      "tags": [
+        "MongoDB",
+        "Performance",
+        "Database",
+        "Indexing"
+      ],
+      "readTime": 6,
+      "likesCount": 42,
+      "commentsCount": 1,
+      "createdAt": "2026-10-11T12:25:35.655Z",
+      "updatedAt": "2026-10-11T12:25:35.655Z"
+    },
+    {
+      "_id": "post_1004",
+      "title": "Securing REST APIs: JWTs, Rate Limiting, and CORS Explained",
+      "content": "Building public web applications without defensive security layers exposes your backend to brute-force attacks, token spoofing, and DDoS vulnerabilities.\n\n### Authentication Guards\nAlways verify token validity, expiration, and user existence before executing protected operations. If a user was deleted or disabled, an active token should not grant unauthorized access.\n\n### Rate Limiting\nProtect authentication routes (registration and login) with rate limiters like `express-rate-limit` to prevent credential-stuffing bots.\n\n### Security Headers\nEmploy `helmet` to enforce standard HTTP headers, including Strict-Transport-Security, Content-Security-Policy, and X-Content-Type-Options.",
+      "author": {
+        "_id": "user_alex_101",
+        "name": "Alex Rivera",
+        "email": "alex@example.com",
+        "avatar": "https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=150&auto=format&fit=crop&q=80"
+      },
+      "category": "Technology",
+      "coverImage": "https://images.unsplash.com/photo-1550751827-4bd374c3f58b?w=1200&auto=format&fit=crop&q=80",
+      "tags": [
+        "Security",
+        "JWT",
+        "REST",
+        "Express",
+        "Auth"
+      ],
+      "readTime": 7,
+      "likesCount": 51,
+      "commentsCount": 0,
+      "createdAt": "2026-10-09T12:25:35.655Z",
+      "updatedAt": "2026-10-09T12:25:35.655Z"
+    },
+    {
+      "_id": "post_1005",
+      "title": "Building Accessible and Responsive UI Components with Tailwind CSS",
+      "content": "Tailwind CSS has reshaped how modern web applications are styled. By working with composable utility classes, teams achieve unparalleled consistency across breakpoints.\n\n### Core Accessibility Standards\n* **Contrast Ratios:** Maintain WCAG AA minimum 4.5:1 contrast for regular text.\n* **Keyboard Navigation:** Always maintain visible focus rings (`focus-visible:ring-2`).\n* **Semantic Elements:** Use `<main>`, `<article>`, `<nav>`, and `<header>` instead of nested generic `<div>` elements.\n\nThese principles ensure that all visitors, regardless of assistive technology, enjoy your writing.",
+      "author": {
+        "_id": "user_sarah_102",
+        "name": "Sarah Chen",
+        "email": "sarah@example.com",
+        "avatar": "https://images.unsplash.com/photo-1494790108377-be9c29b29330?w=150&auto=format&fit=crop&q=80"
+      },
+      "category": "Design",
+      "coverImage": "https://images.unsplash.com/photo-1517694712202-14dd9538aa97?w=1200&auto=format&fit=crop&q=80",
+      "tags": [
+        "TailwindCSS",
+        "Accessibility",
+        "CSS",
+        "Design"
+      ],
+      "readTime": 4,
+      "likesCount": 19,
+      "commentsCount": 0,
+      "createdAt": "2026-10-06T12:25:35.655Z",
+      "updatedAt": "2026-10-06T12:25:35.655Z"
+    }
+  ],
+  "comments": [
+    {
+      "_id": "comment_2001",
+      "content": "Terrific breakdown of MERN architecture! The cascade delete pattern in Mongoose hooks is something many developers overlook when dealing with orphaned comments.",
+      "author": {
+        "_id": "user_sarah_102",
+        "name": "Sarah Chen",
+        "email": "sarah@example.com",
+        "avatar": "https://images.unsplash.com/photo-1494790108377-be9c29b29330?w=150&auto=format&fit=crop&q=80"
+      },
+      "post": "post_1001",
+      "createdAt": "2026-10-16T12:25:35.655Z",
+      "updatedAt": "2026-10-16T12:25:35.655Z"
+    },
+    {
+      "_id": "comment_2002",
+      "content": "Totally agree on shared TypeScript types across client and server. It saves hours of debugging in production.",
+      "author": {
+        "_id": "user_marcus_103",
+        "name": "Marcus Vance",
+        "email": "marcus@example.com",
+        "avatar": "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=150&auto=format&fit=crop&q=80"
+      },
+      "post": "post_1001",
+      "createdAt": "2026-10-17T12:25:35.655Z",
+      "updatedAt": "2026-10-17T12:25:35.655Z"
+    },
+    {
+      "_id": "comment_2003",
+      "content": "Great UX insights Sarah! Optimistic UI combined with graceful fallback when requests fail makes the whole platform feel snappy.",
+      "author": {
+        "_id": "user_alex_101",
+        "name": "Alex Rivera",
+        "email": "alex@example.com",
+        "avatar": "https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=150&auto=format&fit=crop&q=80"
+      },
+      "post": "post_1002",
+      "createdAt": "2026-10-14T12:25:35.655Z",
+      "updatedAt": "2026-10-14T12:25:35.655Z"
+    },
+    {
+      "_id": "comment_2004",
+      "content": "The compound index reminder is huge. We cut our query times from 420ms down to 12ms just by indexing category + createdAt.",
+      "author": {
+        "_id": "user_alex_101",
+        "name": "Alex Rivera",
+        "email": "alex@example.com",
+        "avatar": "https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=150&auto=format&fit=crop&q=80"
+      },
+      "post": "post_1003",
+      "createdAt": "2026-10-12T12:25:35.655Z",
+      "updatedAt": "2026-10-12T12:25:35.655Z"
+    }
+  ]
+}
